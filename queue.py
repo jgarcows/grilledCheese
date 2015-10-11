@@ -18,9 +18,14 @@ toppings.sort()
 names = ["Pia", "Hazel", "Genevieve", "Annabella", "Chris", "Mike", "Jenny", "John", "Marie", "Lynn", "Jacob", "Vickie", "Jason", "Amber", "Han", "Corrie", "Brad"]
 names.sort()
 
-def makeTableLines(dataList):
+def makeTableLines(dataList, allowMark=False):
     output = ''
     for line in dataList:
+#        if allowMark:
+#            output += "<tr>\n <td>{}</td>\n <td>{}</td>\n <td>{}</td>\n <td>{}</td>\n<td>".format(line[0], line[1], line[2], line[3])
+#            output += "<FORM method=\"post\" action=\"/cgi-bin/grilledCheese/complete.py\"><INPUT type=\"hidden\" name=\"line\" value=\"{}\">"
+#            output += "</td></tr>\n"
+#        else:
         output += "<tr>\n <td>{}</td>\n <td>{}</td>\n <td>{}</td>\n <td>{}</td>\n</tr>\n".format(line[0], line[1], line[2], line[3])
         lName = line[0].lower()
         nameCount = 1
@@ -51,16 +56,16 @@ sanatizer = re.compile('[^a-zA-Z0-9_ ,\\|]')
 
 queue = [sanatizer.sub('', line.strip()).split('|') for line in open('E:\\WebData\\queue.txt', "r")]
 completed = [sanatizer.sub('', line.strip()).split('|') for line in open('E:\\WebData\\completed.txt', "r")]
-inprogress = [sanatizer.sub('', line.strip()).split('|') for line in open('E:\\WebData\\inprogress.txt', "r")]
+#inprogress = [sanatizer.sub('', line.strip()).split('|') for line in open('E:\\WebData\\inprogress.txt', "r")]
 
 queue = [x for x in queue if len(x) == 5]
 completed = [x for x in completed if len(x) == 5]
-inprogress = [x for x in inprogress if len(x) == 5]
+#inprogress = [x for x in inprogress if len(x) == 5]
 
 
 
 completedTable = makeTableLines(completed)
-inprogressTable = makeTableLines(inprogress)
+#inprogressTable = makeTableLines(inprogress)
 makeTableLines(queue)
 
 queue.sort(queueSort)
@@ -93,12 +98,12 @@ def columnRadioTable(name, options, cols=2):
 #file = open("JacobList.txt", "r")
 
 print '<table style="width:100%" border="1">'
-print '<tr>\n <th colspan="4"> In Progress </th></tr>'
-print "<tr>\n <th>Name</th>\n <th>Bread</th>\n <th>Cheese</th>\n <th>Toppings</th>\n</tr>"
-print inprogressTable
+#print '<tr>\n <th colspan="4"> In Progress </th></tr>'
+#print "<tr>\n <th>Name</th>\n <th>Bread</th>\n <th>Cheese</th>\n <th>Toppings</th>\n</tr>"
+#print inprogressTable
 print '<tr>\n <th colspan="4"> Queue </th></tr>'
 print "<tr>\n <th>Name</th>\n <th>Bread</th>\n <th>Cheese</th>\n <th>Toppings</th>\n</tr>"
-print makeTableLines(queue)
+print makeTableLines(queue, True)
 print '<tr>\n <th colspan="4"> Completed </th></tr>'
 print "<tr>\n <th>Name</th>\n <th>Bread</th>\n <th>Cheese</th>\n <th>Toppings</th>\n</tr>"
 print completedTable
@@ -115,7 +120,7 @@ columnCheckTable("cheese", cheeses)
 print '  </td>'
 print '  <td>'
 columnCheckTable("toppings", toppings, 3)
-print '   Custom: <input type="text" name=toppings[]>'
+print '   Custom: <input type="text" name=toppings>'
 print '  </td></tr>'
 print '  <tr>'
 print '   <td colspan="3"> Name: '
