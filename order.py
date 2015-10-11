@@ -48,7 +48,8 @@ orderLine = orderLine[:-1]
 orderLine += '|'
 for topping in toppings:
     orderLine += topping + ','
-orderLine = orderLine[:-1]
+if len(toppings > 0):
+    orderLine = orderLine[:-1]
 orderLine += '|' + str(int(time.time()))
 
 queue.write('\n'+orderLine)
