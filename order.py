@@ -48,7 +48,7 @@ orderLine = orderLine[:-1]
 orderLine += '|'
 for topping in toppings:
     orderLine += topping + ','
-if len(toppings > 0):
+if len(toppings) > 0:
     orderLine = orderLine[:-1]
 orderLine += '|' + str(int(time.time()))
 
